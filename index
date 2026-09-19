@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#3659d9">
+<title>APL – digital dagbok v0.3</title>
+<style>
+:root{--blue:#3659d9;--blue2:#2848bf;--ink:#17203d;--muted:#64708c;--bg:#f3f6fb;--card:#fff;--ok:#16875d;--warn:#d98200;--bad:#c23d3d;--line:#dce3ef;--shadow:0 14px 40px rgba(25,42,86,.13)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+button,input,textarea,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+header{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,var(--blue),#5773e8);color:#fff;padding:14px 16px;box-shadow:0 5px 22px rgba(30,50,130,.2)}
+.header-inner{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:900;letter-spacing:.1px}.mode-pill{font-size:12px;font-weight:800;background:rgba(255,255,255,.18);padding:6px 9px;border-radius:999px}
+main{max-width:1050px;margin:0 auto;padding:18px 14px 48px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px}.card.flat{box-shadow:none}.card h2,.card h3{margin:0 0 10px}.muted{color:var(--muted)}.small{font-size:12px}.tiny{font-size:11px}.strong{font-weight:900}.center{text-align:center}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.stack{display:grid;gap:10px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}
+label{display:grid;gap:6px;font-size:13px;font-weight:750;color:#2b3552}input,textarea,select{width:100%;border:1px solid #cfd8e8;border-radius:12px;background:#fff;padding:11px 12px;color:var(--ink);outline:none}input:focus,textarea:focus,select:focus{border-color:#6c83ed;box-shadow:0 0 0 3px rgba(74,103,224,.12)}textarea{min-height:82px;resize:vertical}
+.btn{border:0;border-radius:13px;padding:12px 15px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:7px}.btn.primary{background:var(--blue);color:#fff}.btn.primary:hover{background:var(--blue2)}.btn.secondary{background:#eef2ff;color:#2c47b2}.btn.ghost{background:#fff;border:1px solid var(--line);color:#2b3552}.btn.ok{background:var(--ok);color:#fff}.btn.warn{background:#fff3dc;color:#895500}.btn.danger{background:#ffe9e9;color:#a62d2d}.btn.big{min-height:56px;font-size:17px;width:100%}.btn:disabled{opacity:.45;cursor:not-allowed}.btn-sm{padding:8px 10px;border-radius:10px;font-size:12px}
+.hero{padding:24px 18px;text-align:center;background:linear-gradient(180deg,#fff,#f7f9ff)}.hero-icon{font-size:44px}.status{border-radius:13px;padding:11px 12px;font-size:13px;font-weight:800}.status.ok{background:#e7f6ef;color:#116d4c}.status.warn{background:#fff1da;color:#9a5e00}.status.bad{background:#ffe7e7;color:#a83333}.status.info{background:#edf2ff;color:#3450b9}.status.neutral{background:#f0f3f7;color:#566174}
+.kpi{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fafcff}.kpi span{display:block;color:var(--muted);font-size:11px;font-weight:750}.kpi b{display:block;margin-top:4px;font-size:18px}.divider{height:1px;background:var(--line);margin:14px 0}
+.nav{display:flex;gap:8px;overflow:auto;padding-bottom:4px}.nav .btn{white-space:nowrap}.nav .active{background:var(--blue);color:#fff}
+.profile-card{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fbfcff}.goal-row{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fbfcff;display:grid;grid-template-columns:1.1fr 1.5fr 1.2fr auto;gap:8px;align-items:end}.schedule-grid{display:grid;grid-template-columns:110px 1fr 1fr;gap:8px;align-items:center}.schedule-grid .day{font-weight:900;display:flex;align-items:center;gap:8px}.schedule-grid input[type="checkbox"]{width:18px;height:18px}
+.codebox{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;word-break:break-all;background:#f7f8fc;border:1px dashed #cfd7e6;border-radius:12px;padding:10px}.linkbox{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.linkbox input{font-size:12px}
+.photo-preview{width:100%;max-height:300px;object-fit:cover;border-radius:15px;border:1px solid var(--line);background:#eef1f6}.photo-thumb{width:90px;height:90px;object-fit:cover;border-radius:12px;border:1px solid var(--line);background:#eef1f6}.photo-box{display:grid;grid-template-columns:100px 1fr;gap:12px;align-items:start}
+.assess-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.assess-btn{border:2px solid var(--line);background:#fff;border-radius:14px;padding:13px 8px;font-weight:900;color:#33405d}.assess-btn.selected{border-color:var(--blue);background:#eef2ff;color:#2542aa}.assess-btn[data-value="independent"].selected{border-color:#15855b;background:#e9f7f1;color:#126848}.assess-btn[data-value="support"].selected{border-color:#d18400;background:#fff4df;color:#8b5900}.assess-btn[data-value="practice"].selected{border-color:#c43e3e;background:#ffeaea;color:#9f3030}
+.report{border-left:4px solid #7589e9;padding-left:12px}.match{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fbfcff;display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center}.match input{width:18px;height:18px}.badge{display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;font-size:11px;font-weight:900}.badge.ok{background:#e8f6ef;color:#126b4b}.badge.warn{background:#fff1d8;color:#8b5700}.badge.neutral{background:#edf1f7;color:#566175}.badge.bad{background:#ffe8e8;color:#9e3030}
+.qr-image{width:220px;height:220px;border-radius:12px;border:1px solid var(--line);background:#fff;padding:7px}.home-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.home-option{border:1px solid var(--line);border-radius:18px;padding:20px;background:#fff;text-align:center;box-shadow:var(--shadow)}.home-option .icon{font-size:38px}.home-option h3{margin:8px 0}.home-option p{min-height:54px}
+.footer-note{font-size:11px;color:#6d7890;text-align:center;margin-top:22px}.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(20px);z-index:100;background:#17203d;color:#fff;padding:11px 14px;border-radius:12px;font-size:13px;font-weight:800;opacity:0;pointer-events:none;transition:.2s;max-width:min(92vw,650px);text-align:center}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.student-shell{max-width:620px;margin:0 auto}.student-welcome{min-height:calc(100vh - 145px);display:grid;align-content:center;text-align:center;padding:28px 18px}.student-welcome .wave{font-size:54px;margin-bottom:8px}.student-welcome h1{font-size:32px;line-height:1.05;margin:0 0 8px}.student-welcome .dayline{font-size:17px;font-weight:850;margin-top:12px}.student-welcome .goodday{font-size:21px;font-weight:950;color:var(--blue);margin:20px 0 4px}.student-hint{margin-top:18px;background:#edf2ff;border:1px solid #d7e0ff;border-radius:16px;padding:14px;font-weight:850;color:#3450b9}.student-check{display:inline-flex;align-items:center;gap:7px;background:#e7f6ef;color:#116d4c;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:900}.student-step-title{font-size:26px;line-height:1.1;margin:6px 0}.camera-label{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:64px;border:0;border-radius:16px;background:var(--blue);color:#fff;font-size:18px;font-weight:950;cursor:pointer}.camera-label input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}.reflection-box label{font-size:15px}.reflection-box textarea{min-height:88px;font-size:16px}.student-finish{background:linear-gradient(180deg,#fff,#f2faf6);text-align:center}.student-finish .done-icon{font-size:48px}.student-finish h2{font-size:28px;margin:4px 0}.time-line{font-size:20px;font-weight:950;margin:10px 0}.compact-reflection{display:grid;gap:7px;text-align:left}.compact-reflection div{background:#f7f9fc;border-radius:12px;padding:10px 12px}.supervisor-compact{max-width:680px;margin:0 auto}.supervisor-topline{font-size:18px;font-weight:950}.deviation-panel{display:none;margin-top:10px}.deviation-panel.show{display:grid;gap:9px}.tiny-action{border:0;background:transparent;color:#4e5f86;font-weight:850;padding:6px 0;text-decoration:underline}.student-sent{min-height:calc(100vh - 145px);display:grid;align-content:center;text-align:center}.student-sent .icon{font-size:56px}.student-sent h2{font-size:28px;margin:8px 0}
+@media(max-width:760px){main{padding:12px 10px 36px}.grid2,.grid3,.home-grid{grid-template-columns:1fr}.goal-row{grid-template-columns:1fr}.schedule-grid{grid-template-columns:1fr 1fr 1fr}.schedule-grid .day{grid-column:1/-1;margin-top:7px}.assess-grid{grid-template-columns:1fr}.photo-box{grid-template-columns:82px 1fr}.photo-thumb{width:74px;height:74px}.card{border-radius:15px;padding:14px}.header-inner{align-items:flex-start}.mode-pill{font-size:10px}.linkbox{grid-template-columns:1fr}.linkbox .btn{width:100%}}
+</style>
+</head>
+<body>
+<header><div class="header-inner"><div><div class="brand">APL – digital dagbok</div><div class="tiny" id="headerSub">Fristående testversion v0.3</div></div><div class="mode-pill" id="modePill">START</div></div></header>
+<main id="app"></main>
+<div class="toast" id="toast"></div>
+<script>
+(() => {
+"use strict";
+const VERSION="0.3";
+const TEACHER_KEY="apl_teacher_state_v01";
+const STUDENT_PROFILE_KEY="apl_student_profile_v01";
+const STUDENT_DAYS_KEY="apl_student_days_v01";
+const LAST_MODE_KEY="apl_last_mode_v01";
+const QR_SESSION_KEY="apl_qr_verified_v01";
+const PENDING_PROFILE_KEY="apl_pending_profile_v01";
+const PENDING_SUPERVISOR_KEY="apl_pending_supervisor_v01";
+const QR_TOKEN="APL-CHECK-V1";
+const DB_NAME="apl_student_media_v01", DB_STORE="photos";
+const $=sel=>document.querySelector(sel);
+const app=$("#app");
+let toastTimer=null;
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),2600)}
+function esc(s){return String(s??"").replace(/[&<>\"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]))}
+function uid(prefix="id"){return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2,8)}`}
+function cleanBaseUrl(){return location.protocol==="file:"?location.href.split("#")[0]:`${location.origin}${location.pathname}${location.search}`}
+function isWeb(){return /^https?:$/i.test(location.protocol)}
+function setMode(name,sub=""){$("#modePill").style.display="";$("#modePill").textContent=name;$("#headerSub").textContent=sub||`Fristående prototyp v${VERSION}`}
+function copyText(text,msg="Kopierat"){
+  const v=String(text||"");
+  if(navigator.clipboard?.writeText)return navigator.clipboard.writeText(v).then(()=>toast(msg)).catch(()=>fallbackCopy(v,msg));
+  fallbackCopy(v,msg);
+}
+function fallbackCopy(v,msg){const ta=document.createElement("textarea");ta.value=v;ta.style.position="fixed";ta.style.left="-9999px";document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();toast(msg)}
+function bytesToB64(bytes){let bin="";for(let i=0;i<bytes.length;i+=0x8000)bin+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(bin).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/g,"")}
+function b64ToBytes(v){let n=String(v||"").replace(/-/g,"+").replace(/_/g,"/");while(n.length%4)n+="=";const bin=atob(n),out=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out}
+async function packData(type,obj){const raw=new TextEncoder().encode(JSON.stringify(obj));if(typeof CompressionStream==="function"){const stream=new Blob([raw]).stream().pipeThrough(new CompressionStream("gzip"));const packed=new Uint8Array(await new Response(stream).arrayBuffer());return `${type}G1.${bytesToB64(packed)}`}return `${type}J1.${bytesToB64(raw)}`}
+async function unpackData(code,type){const str=String(code||"").trim();const m=str.match(new RegExp(`^${type}([GJ])1\\.([A-Za-z0-9_-]+)$`));if(!m)throw new Error("Fel kodformat");const bytes=b64ToBytes(m[2]);let text="";if(m[1]==="G"){if(typeof DecompressionStream!=="function")throw new Error("Webbläsaren kan inte läsa komprimerad data");const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));text=await new Response(stream).text()}else text=new TextDecoder().decode(bytes);return JSON.parse(text)}
+function replaceHash(){try{history.replaceState(null,"",`${location.pathname}${location.search}`)}catch(e){location.hash=""}}
+function fmtDate(iso){if(!iso)return"—";try{return new Intl.DateTimeFormat("sv-SE",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date(`${iso}T12:00:00`))}catch(e){return iso}}
+function fmtTime(iso){if(!iso)return"—";try{return new Intl.DateTimeFormat("sv-SE",{hour:"2-digit",minute:"2-digit"}).format(new Date(iso))}catch(e){return iso}}
+function minutesBetween(a,b){return Math.max(0,Math.round((new Date(b)-new Date(a))/60000))}
+function localDateKey(d=new Date()){const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");return `${y}-${m}-${day}`}
+function scheduleFor(profile,dateKey){const d=new Date(`${dateKey}T12:00:00`),k=String(d.getDay());return profile?.schedule?.[k]||{active:false,start:"",end:""}}
+function minutesFromHHMM(v){const [h,m]=String(v||"0:0").split(":").map(Number);return h*60+m}
+function attendanceMetrics(profile,day){const sch=scheduleFor(profile,day.date);let late=0,early=0;if(sch.active&&day.checkIn){const dt=new Date(day.checkIn);const actual=dt.getHours()*60+dt.getMinutes();late=Math.max(0,actual-(minutesFromHHMM(sch.start)+Number(profile.graceMinutes||0)))}if(sch.active&&day.checkOut){const dt=new Date(day.checkOut);const actual=dt.getHours()*60+dt.getMinutes();early=Math.max(0,minutesFromHHMM(sch.end)-actual)}return{schedule:sch,late,early}}
+function teacherState(){try{return JSON.parse(localStorage.getItem(TEACHER_KEY)||"")||{profiles:{},reports:[]}}catch(e){return{profiles:{},reports:[]}}}
+function saveTeacherState(s){localStorage.setItem(TEACHER_KEY,JSON.stringify(s))}
+function studentProfile(){try{return JSON.parse(localStorage.getItem(STUDENT_PROFILE_KEY)||"null")}catch(e){return null}}
+function studentDays(){try{return JSON.parse(localStorage.getItem(STUDENT_DAYS_KEY)||"{}")||{}}catch(e){return{}}}
+function saveStudentDays(v){localStorage.setItem(STUDENT_DAYS_KEY,JSON.stringify(v))}
+function setLastMode(m){localStorage.setItem(LAST_MODE_KEY,m)}
+function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains(DB_STORE))db.createObjectStore(DB_STORE)};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
+async function putPhoto(key,blob){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(DB_STORE,"readwrite");tx.objectStore(DB_STORE).put(blob,key);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error)})}
+async function getPhoto(key){const db=await openDB();return new Promise((resolve,reject)=>{const req=db.transaction(DB_STORE,"readonly").objectStore(DB_STORE).get(key);req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error)})}
+async function removePhoto(key){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(DB_STORE,"readwrite");tx.objectStore(DB_STORE).delete(key);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error)})}
+async function loadImageSource(blob){if(typeof createImageBitmap==="function"){try{return await createImageBitmap(blob)}catch(e){console.warn("createImageBitmap misslyckades",e)}}return await new Promise((resolve,reject)=>{const url=URL.createObjectURL(blob),img=new Image();img.onload=()=>{URL.revokeObjectURL(url);resolve(img)};img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error("Kunde inte läsa bilden"))};img.src=url})}
+async function imageToBlob(file,max=1280,quality=.78){const img=await loadImageSource(file);const iw=img.width||img.naturalWidth,ih=img.height||img.naturalHeight,scale=Math.min(1,max/Math.max(iw,ih));const w=Math.max(1,Math.round(iw*scale)),h=Math.max(1,Math.round(ih*scale));const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(img,0,0,w,h);img.close?.();return new Promise(r=>c.toBlob(r,"image/jpeg",quality))}
+async function blobToThumb(blob,max=96,quality=.34){const img=await loadImageSource(blob);const iw=img.width||img.naturalWidth,ih=img.height||img.naturalHeight,scale=Math.min(1,max/Math.max(iw,ih));const w=Math.max(1,Math.round(iw*scale)),h=Math.max(1,Math.round(ih*scale));const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(img,0,0,w,h);img.close?.();return c.toDataURL("image/jpeg",quality)}
+function qrFresh(){const t=Number(sessionStorage.getItem(QR_SESSION_KEY)||0);return Date.now()-t<5*60*1000}
+function verifyQr(){sessionStorage.setItem(QR_SESSION_KEY,String(Date.now()))}
+function consumeQr(){sessionStorage.removeItem(QR_SESSION_KEY)}
+function todayDay(profile){const days=studentDays(),date=localDateKey();if(!days[date])days[date]={date,profileId:profile.id,checkIn:null,checkOut:null,reflections:{did:"",good:"",practice:""},thumb:"",sentToSupervisorAt:null,reportId:""};saveStudentDays(days);return days[date]}
+function updateToday(mut){const p=studentProfile(),days=studentDays(),date=localDateKey();if(!days[date])days[date]={date,profileId:p?.id||"",checkIn:null,checkOut:null,reflections:{did:"",good:"",practice:""},thumb:"",sentToSupervisorAt:null,reportId:""};mut(days[date]);saveStudentDays(days);return days[date]}
+const SWEDISH_STOP=new Set("och att det som den det en ett med till från för på i av är var blir blev har hade kan ska sig sin sitt sina de dem vi ni du jag elev eleven arbete arbetsuppgift dagens under genom samt vid".split(" "));
+const SYN_GROUPS=[
+ ["disk","diskning","diskmaskin","diskmaskinen","diskade","rengöring","rengöra","rent","smutsigt","hygien"],
+ ["frukost","buffé","buffen","buffén","pålägg","yoghurt","bröd","servering","fylla","påfyllning"],
+ ["reception","incheckning","checkin","gäst","gäster","bokning","reservation","nyckel","välkomna"],
+ ["städ","städning","städa","housekeeping","rum","bädda","bäddning","rengör"],
+ ["kök","matlagning","tillaga","tillagning","förbereda","mise","place","råvara","råvaror"],
+ ["service","bemötande","kommunikation","kund","gästkontakt","samarbete","team"],
+ ["kassa","betalning","kort","kontant","försäljning","pris"],
+ ["säkerhet","ergonomi","arbetsmiljö","risk","skydd"]
+];
+function normText(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9åäö\s-]/gi," ").replace(/\s+/g," ").trim()}
+function tokens(s){return normText(s).split(/\s+/).filter(w=>w.length>2&&!SWEDISH_STOP.has(w))}
+function expandTokens(arr){const out=new Set(arr);for(const w of arr){for(const g of SYN_GROUPS){if(g.some(x=>normText(x)===w)){g.forEach(x=>out.add(normText(x)))}}}return out}
+function matchGoals(profile,report){const source=[report.task,report.reflections?.did,report.reflections?.good,report.reflections?.practice].filter(Boolean).join(" ");const src=expandTokens(tokens(source));return (profile?.goals||[]).map(g=>{const explicit=tokens(g.keywords||"");const auto=tokens(`${g.delmal||""} ${g.delbit||""}`);const kws=expandTokens([...explicit,...auto]);let score=0,hits=[];for(const k of kws){if(src.has(k)){score+=explicit.includes(k)?3:1;hits.push(k)}}const phrase=normText(g.delbit||"");if(phrase&&normText(source).includes(phrase)){score+=5;hits.push("fras")};return{goal:g,score,hits:[...new Set(hits)].slice(0,5)}}).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,4)}
+function assessmentLabel(v){return v==="independent"?"Självständigt":v==="support"?"Med stöd":v==="practice"?"Behöver träna mer":"—"}
+function deviationLabel(v){return ({none:"Ingen avvikelse",sick:"Sjuk / gick hem under dagen",partial:"Frånvarande del av dagen",changed:"Överenskommen ändrad arbetstid",other:"Annan avvikelse"})[v]||v||"Ingen avvikelse"}
+
+function renderHome(){setMode("START","APL – digital dagbok");setLastMode("home");app.innerHTML=`
+<section class="card hero"><div class="hero-icon">📱</div><h2>APL – digital dagbok</h2><p class="muted">Fristående prototyp. Data sparas lokalt i respektive webbläsare.</p></section>
+<div class="home-grid">
+ <div class="home-option"><div class="icon">👩‍🏫</div><h3>Lärare</h3><p class="muted">Skapa APL-profil, schema och delmål. Importera handledarrapporter.</p><button class="btn primary big" id="goTeacher">Öppna lärarläge</button></div>
+ <div class="home-option"><div class="icon">🎒</div><h3>Elev</h3><p class="muted">Öppnar elevens lokala APL-dagbok om profilen redan är aktiverad.</p><button class="btn primary big" id="goStudent">Öppna elevläge</button></div>
+ <div class="home-option"><div class="icon">🧑‍💼</div><h3>Handledare</h3><p class="muted">Handledarläget öppnas normalt från länken i elevens dagsrapport.</p><button class="btn ghost big" disabled>Öppnas via rapportlänk</button></div>
+</div><div class="footer-note">v${VERSION} · Ingen central databas · statisk HTML för GitHub Pages</div>`;
+$("#goTeacher").onclick=renderTeacher;$("#goStudent").onclick=renderStudent;
+}
+
+function emptyProfile(){return{id:uid("apl"),studentCode:"",studentName:"",workplace:"",supervisorName:"",supervisorEmail:"",teacherEmail:"",startDate:"",endDate:"",graceMinutes:0,schedule:{"1":{active:true,start:"08:00",end:"15:30"},"2":{active:true,start:"08:00",end:"15:30"},"3":{active:true,start:"08:00",end:"15:30"},"4":{active:true,start:"08:00",end:"15:30"},"5":{active:true,start:"08:00",end:"15:30"},"6":{active:false,start:"",end:""},"0":{active:false,start:"",end:""}},goals:[]}}
+let editingProfile=null;
+function teacherShell(tab="profiles"){
+ setMode("LÄRARE","Lokalt på lärarens dator");setLastMode("teacher");
+ app.innerHTML=`<div class="card flat"><div class="nav"><button class="btn ${tab==="profiles"?"active":"ghost"}" data-tab="profiles">APL-profiler</button><button class="btn ${tab==="reports"?"active":"ghost"}" data-tab="reports">Dagsrapporter</button><button class="btn ${tab==="summary"?"active":"ghost"}" data-tab="summary">Sammanställning</button></div></div><div id="teacherContent"></div>`;
+ document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>renderTeacher(b.dataset.tab));
+}
+function renderTeacher(tab="profiles"){
+ teacherShell(tab);
+ if(tab==="profiles")renderTeacherProfiles();else if(tab==="reports")renderTeacherReports();else renderTeacherSummary();
+}
+function renderTeacherProfiles(){
+ const state=teacherState(),profiles=Object.values(state.profiles||{});
+ const p=editingProfile||emptyProfile();
+ const days=[{k:"1",n:"Måndag"},{k:"2",n:"Tisdag"},{k:"3",n:"Onsdag"},{k:"4",n:"Torsdag"},{k:"5",n:"Fredag"},{k:"6",n:"Lördag"},{k:"0",n:"Söndag"}];
+ $("#teacherContent").innerHTML=`
+ <section class="card"><div class="row between"><div><h2>Skapa APL-profil</h2><div class="muted small">Profilen används för elevens personliga Classroom-länk.</div></div><button class="btn secondary btn-sm" id="demoGoalsBtn">Lägg in demo-delmål</button></div>
+ <div class="grid2" style="margin-top:12px">
+  <label>Elevkod<input id="pCode" value="${esc(p.studentCode)}" placeholder="Ex. HR25-07"></label>
+  <label>Elevnamn / visningsnamn<input id="pName" value="${esc(p.studentName)}" placeholder="Ex. Anna"></label>
+  <label>APL-plats<input id="pWorkplace" value="${esc(p.workplace)}" placeholder="Ex. Hotellet / restaurangen"></label>
+  <label>Handledare<input id="pSupName" value="${esc(p.supervisorName)}" placeholder="Namn"></label>
+  <label>Handledarens e-post<input id="pSupEmail" type="email" value="${esc(p.supervisorEmail)}" placeholder="handledare@..."></label>
+  <label>Lärarens e-post<input id="pTeacherEmail" type="email" value="${esc(p.teacherEmail)}" placeholder="larare@..."></label>
+  <label>APL start<input id="pStart" type="date" value="${esc(p.startDate)}"></label>
+  <label>APL slut<input id="pEnd" type="date" value="${esc(p.endDate)}"></label>
+  <label>Tolerans sen ankomst (min)<input id="pGrace" type="number" min="0" max="30" value="${Number(p.graceMinutes||0)}"></label>
+ </div>
+ <div class="divider"></div><h3>Planerade arbetstider</h3><div class="schedule-grid" id="scheduleGrid">${days.map(d=>`<div class="day"><input type="checkbox" data-sch-active="${d.k}" ${p.schedule?.[d.k]?.active?"checked":""}> ${d.n}</div><input type="time" data-sch-start="${d.k}" value="${esc(p.schedule?.[d.k]?.start||"")}"><input type="time" data-sch-end="${d.k}" value="${esc(p.schedule?.[d.k]?.end||"")}">`).join("")}</div>
+ <div class="divider"></div><div class="row between"><div><h3 style="margin:0">Delmål och delbitar som ska tränas</h3><div class="muted small">Läraren bestämmer dessa före APL. Nyckelord används för automatisk matchning.</div></div><button class="btn secondary btn-sm" id="addGoalBtn">+ Lägg till</button></div><div id="goalRows" class="stack" style="margin-top:10px"></div>
+ <div class="divider"></div><div class="row"><button class="btn primary" id="saveProfileBtn">Spara APL-profil</button><button class="btn ghost" id="newProfileBtn">Ny profil</button></div>
+ </section>
+ <section class="card"><h2>Sparade APL-profiler</h2><div id="savedProfiles" class="stack"></div></section>
+ <section class="card"><h2>Gemensam QR-kod – skanna in och ut</h2><p class="muted small">Samma QR används av alla elever. Första skanningen checkar in och öppnar dagens dokumentation. Utcheckning sker först när foto och alla tre reflektionsfrågor är klara; därefter checkar nästa skanning ut.</p><div id="commonQrBox"></div></section>`;
+ const currentGoals=(p.goals||[]).map(x=>({...x}));
+ function drawGoals(){const c=$("#goalRows");c.innerHTML=currentGoals.length?currentGoals.map((g,i)=>`<div class="goal-row"><label>Delmål<input data-g-delmal="${i}" value="${esc(g.delmal||"")}" placeholder="Delmål"></label><label>Delbit<input data-g-delbit="${i}" value="${esc(g.delbit||"")}" placeholder="Delbit"></label><label>Nyckelord<input data-g-key="${i}" value="${esc(g.keywords||"")}" placeholder="disk hygien rengöring"></label><button class="btn danger btn-sm" data-g-remove="${i}">Ta bort</button></div>`).join(""):'<div class="status neutral">Inga delbitar valda ännu.</div>';document.querySelectorAll("[data-g-remove]").forEach(b=>b.onclick=()=>{currentGoals.splice(Number(b.dataset.gRemove),1);drawGoals()})}
+ drawGoals();
+ $("#addGoalBtn").onclick=()=>{currentGoals.push({id:uid("g"),delmal:"",delbit:"",keywords:""});drawGoals()};
+ $("#demoGoalsBtn").onclick=()=>{currentGoals.splice(0,currentGoals.length,
+ {id:uid("g"),delmal:"Hygien och arbetsrutiner",delbit:"Arbeta hygieniskt vid disk och rengöring",keywords:"disk diskmaskin hygien rengöring rent smutsigt"},
+ {id:uid("g"),delmal:"Frukost och servering",delbit:"Förbereda och fylla på frukostbuffé",keywords:"frukost buffé yoghurt bröd pålägg fylla servering"},
+ {id:uid("g"),delmal:"Service och bemötande",delbit:"Bemöta gäster professionellt",keywords:"gäst gäster service bemötande kommunikation"});drawGoals();toast("Demo-delmål inlagda")};
+ function collectProfile(){
+  document.querySelectorAll("[data-g-delmal]").forEach(el=>{const i=Number(el.dataset.gDelmal);currentGoals[i].delmal=el.value.trim()});document.querySelectorAll("[data-g-delbit]").forEach(el=>{const i=Number(el.dataset.gDelbit);currentGoals[i].delbit=el.value.trim()});document.querySelectorAll("[data-g-key]").forEach(el=>{const i=Number(el.dataset.gKey);currentGoals[i].keywords=el.value.trim()});
+  const schedule={};days.forEach(d=>schedule[d.k]={active:$(`[data-sch-active="${d.k}"]`).checked,start:$(`[data-sch-start="${d.k}"]`).value,end:$(`[data-sch-end="${d.k}"]`).value});
+  return{id:p.id||uid("apl"),studentCode:$("#pCode").value.trim(),studentName:$("#pName").value.trim(),workplace:$("#pWorkplace").value.trim(),supervisorName:$("#pSupName").value.trim(),supervisorEmail:$("#pSupEmail").value.trim(),teacherEmail:$("#pTeacherEmail").value.trim(),startDate:$("#pStart").value,endDate:$("#pEnd").value,graceMinutes:Number($("#pGrace").value||0),schedule,goals:currentGoals.filter(g=>g.delbit||g.delmal)}
+ }
+ $("#saveProfileBtn").onclick=async()=>{const pr=collectProfile();if(!pr.studentCode||!pr.studentName||!pr.supervisorEmail||!pr.teacherEmail){toast("Fyll i elevkod, elevnamn och båda e-postadresserna");return}const s=teacherState();s.profiles[pr.id]=pr;saveTeacherState(s);editingProfile=pr;toast("APL-profil sparad lokalt");renderTeacherProfiles()};
+ $("#newProfileBtn").onclick=()=>{editingProfile=null;renderTeacherProfiles()};
+ renderSavedProfiles();renderCommonQr();
+}
+async function profileLink(profile){const code=await packData("APP",profile);return `${cleanBaseUrl()}#profile=${code}`}
+async function renderSavedProfiles(){const box=$("#savedProfiles"),state=teacherState(),profiles=Object.values(state.profiles||{});if(!profiles.length){box.innerHTML='<div class="status neutral">Inga profiler sparade ännu.</div>';return}box.innerHTML=profiles.map(p=>`<div class="profile-card"><div class="row between"><div><div class="strong">${esc(p.studentName)} <span class="muted">· ${esc(p.studentCode)}</span></div><div class="small muted">${esc(p.workplace||"APL-plats ej angiven")} · ${esc(p.startDate||"?")}–${esc(p.endDate||"?")} · ${p.goals?.length||0} delbitar</div></div><div class="row"><button class="btn ghost btn-sm" data-edit="${p.id}">Redigera</button><button class="btn secondary btn-sm" data-link="${p.id}">Skapa Classroom-länk</button></div></div><div class="hidden" id="link_${p.id}"></div></div>`).join("");
+ document.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>{editingProfile=teacherState().profiles[b.dataset.edit];renderTeacherProfiles()});
+ document.querySelectorAll("[data-link]").forEach(b=>b.onclick=async()=>{const p=teacherState().profiles[b.dataset.link],link=await profileLink(p),target=$(`#link_${p.id}`);target.classList.remove("hidden");target.innerHTML=`<div class="divider"></div>${!isWeb()?'<div class="status warn">Du kör filen lokalt. Classroom-länken blir delbar först när HTML-filen ligger på GitHub Pages.</div>':''}<div class="linkbox"><input readonly value="${esc(link)}"><button class="btn primary btn-sm" data-copy-link>Kopiera länk</button></div><div class="small muted" style="margin-top:6px">Lägg länken i Classroom. Eleven kommer direkt till sin egen APL-dagbok och profilen sparas lokalt på telefonen.</div>`;target.querySelector("[data-copy-link]").onclick=()=>copyText(link,"Classroom-länk kopierad")})
+}
+function renderCommonQr(){const box=$("#commonQrBox");const link=`${cleanBaseUrl()}#qr=${QR_TOKEN}`;const qrSrc=`https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=0&data=${encodeURIComponent(link)}`;box.innerHTML=`${!isWeb()?'<div class="status warn">QR-koden blir praktiskt användbar när sidan ligger på GitHub Pages.</div>':''}<div class="grid2"><div><div class="linkbox"><input readonly value="${esc(link)}"><button class="btn primary btn-sm" id="copyQrLink">Kopiera QR-länk</button></div><p class="small muted">QR-koden innehåller bara den publika APL-länken och ingen elevinformation.</p></div><div class="center"><img class="qr-image" src="${qrSrc}" alt="Gemensam APL QR-kod"><div><button class="btn ghost btn-sm" id="printQr">Skriv ut QR</button></div></div></div>`;$("#copyQrLink").onclick=()=>copyText(link,"QR-länk kopierad");$("#printQr").onclick=()=>window.print()}
+
+function renderTeacherReports(){const s=teacherState(),reports=[...(s.reports||[])].sort((a,b)=>(b.approvedAt||"").localeCompare(a.approvedAt||""));const profiles=s.profiles||{};$("#teacherContent").innerHTML=`<section class="card"><div class="row between"><div><h2>Dagsrapporter</h2><div class="small muted">Rapporter sparas lokalt på lärardatorn.</div></div><button class="btn secondary btn-sm" id="manualImportBtn">Importera kod manuellt</button></div><div id="manualImport" class="hidden" style="margin-top:10px"><textarea id="manualCode" placeholder="Klistra in APL-koden från handledarens mejl"></textarea><button class="btn primary btn-sm" id="readManualCode">Läs rapport</button></div></section><div id="reportsList"></div>`;
+ $("#manualImportBtn").onclick=()=>$("#manualImport").classList.toggle("hidden");$("#readManualCode").onclick=async()=>{try{const r=await unpackData($("#manualCode").value.trim(),"APA");importTeacherReport(r);renderTeacher("reports")}catch(e){toast("Koden kunde inte läsas")}};
+ const list=$("#reportsList");if(!reports.length){list.innerHTML='<div class="card"><div class="status neutral">Inga handledarrapporter importerade ännu.</div></div>';return}
+ list.innerHTML=reports.map((r,i)=>{const p=profiles[r.profileId],matches=p?matchGoals(p,r):[];const status=r.teacherApproved?'<span class="badge ok">Lärargodkänd</span>':'<span class="badge warn">Väntar på läraren</span>';return`<section class="card" data-report="${esc(r.reportId)}"><div class="row between"><div><h3>${esc(r.studentName||r.studentCode)} · ${esc(r.date)}</h3><div class="small muted">${esc(r.workplace||"")} · handledare: ${assessmentLabel(r.supervisorAssessment)}</div></div>${status}</div><div class="grid3" style="margin-top:10px"><div class="kpi"><span>IN</span><b>${fmtTime(r.checkIn)}</b></div><div class="kpi"><span>UT</span><b>${fmtTime(r.checkOut)}</b></div><div class="kpi"><span>Avvikelse</span><b style="font-size:13px">${esc(deviationLabel(r.deviation))}</b></div></div>${r.lateMinutes?`<div class="status warn" style="margin-top:10px">⚠ Sen ankomst: ${r.lateMinutes} min</div>`:""}${r.earlyMinutes?`<div class="status warn" style="margin-top:10px">⚠ Tidig utcheckning: ${r.earlyMinutes} min</div>`:""}<div class="divider"></div><div class="photo-box">${r.thumb?`<img class="photo-thumb" src="${r.thumb}" alt="Miniatyr av elevens dokumentation">`:'<div class="photo-thumb"></div>'}<div><div class="strong">Dagens arbetsuppgift</div><div>${esc(r.task||"—")}</div><div class="small muted" style="margin-top:6px"><b>Gjorde:</b> ${esc(r.reflections?.did||"—")}<br><b>Gick bra:</b> ${esc(r.reflections?.good||"—")}<br><b>Träna mer:</b> ${esc(r.reflections?.practice||"—")}</div></div></div><div class="divider"></div><h3>Automatisk matchning mot planerade delbitar</h3><div class="small muted">Förslagen är bedömningsstöd. Läraren avgör vad som faktiskt ska registreras.</div><div class="stack match-list" style="margin-top:9px">${matches.length?matches.map((m,mi)=>`<label class="match"><input type="checkbox" data-match="${i}" data-goal="${esc(m.goal.id)}" ${r.teacherApprovedMatches?.includes(m.goal.id)||(!r.teacherApproved&&m.score>=5)?"checked":""}><div><div class="strong">${esc(m.goal.delbit)}</div><div class="tiny muted">${esc(m.goal.delmal)}${m.hits.length?` · träffar: ${esc(m.hits.join(", "))}`:""}</div></div><span class="badge ${m.score>=5?"ok":"warn"}">${m.score>=5?"Stark":"Möjlig"}</span></label>`).join(""):'<div class="status neutral">Ingen säker matchning. Läraren behöver välja manuellt senare.</div>'}</div><div class="row" style="margin-top:12px"><button class="btn ok btn-sm" data-approve-report="${i}">Godkänn valda delbitar</button><button class="btn ghost btn-sm" data-copy-json="${i}">Kopiera rapport-JSON</button></div></section>`}).join("");
+ document.querySelectorAll("[data-approve-report]").forEach(b=>b.onclick=()=>{const idx=Number(b.dataset.approveReport),r=reports[idx];const checked=[...document.querySelectorAll(`[data-match="${idx}"]:checked`)].map(x=>x.dataset.goal);const state=teacherState(),actual=state.reports.find(x=>x.reportId===r.reportId);if(actual){actual.teacherApproved=true;actual.teacherApprovedAt=new Date().toISOString();actual.teacherApprovedMatches=checked;saveTeacherState(state);toast("Lärarens bedömning sparad");renderTeacher("reports")}});
+ document.querySelectorAll("[data-copy-json]").forEach(b=>b.onclick=()=>{const r=reports[Number(b.dataset.copyJson)];copyText(JSON.stringify(r,null,2),"Rapport-JSON kopierad")});
+}
+function importTeacherReport(report){const s=teacherState();if((s.reports||[]).some(r=>r.reportId===report.reportId)){toast("Rapporten finns redan");return false}s.reports=s.reports||[];s.reports.push(report);saveTeacherState(s);toast(`Rapport importerad: ${report.studentName||report.studentCode}`);return true}
+function renderTeacherSummary(){const s=teacherState(),profiles=s.profiles||{},reports=s.reports||[];const cards=Object.values(profiles).map(p=>{const mine=reports.filter(r=>r.profileId===p.id);const goalStats=(p.goals||[]).map(g=>{const linked=mine.filter(r=>(r.teacherApprovedMatches||[]).includes(g.id));const counts={independent:0,support:0,practice:0};linked.forEach(r=>{if(counts[r.supervisorAssessment]!==undefined)counts[r.supervisorAssessment]++});return{g,n:linked.length,...counts}});return`<section class="card"><div class="row between"><div><h3>${esc(p.studentName)} · ${esc(p.studentCode)}</h3><div class="small muted">${mine.length} dagsrapporter · ${mine.filter(r=>r.teacherApproved).length} lärargodkända</div></div></div><div class="stack" style="margin-top:10px">${goalStats.length?goalStats.map(x=>`<div class="match"><div></div><div><div class="strong">${esc(x.g.delbit)}</div><div class="tiny muted">${esc(x.g.delmal)}</div></div><div class="tiny"><span class="badge ok">Själv ${x.independent}</span> <span class="badge warn">Stöd ${x.support}</span> <span class="badge bad">Träna ${x.practice}</span></div></div>`).join(""):'<div class="status neutral">Inga delbitar i profilen.</div>'}</div></section>`}).join("");$("#teacherContent").innerHTML=`<section class="card"><h2>Sammanställning inför trepartssamtal</h2><p class="muted small">Visar lärargodkända kopplingar mellan handledarens dagsrapporter och elevens planerade delbitar.</p></section>${cards||'<section class="card"><div class="status neutral">Inga APL-profiler ännu.</div></section>'}`}
+
+async function activateProfile(profile){
+ localStorage.setItem(STUDENT_PROFILE_KEY,JSON.stringify(profile));
+ setLastMode("student");
+ renderStudent({firstOpen:true});
+}
+function studentHeader(profile){
+ setMode("MIN APL",profile?.workplace||"APL-dagbok");
+ $("#modePill").style.display="none";
+}
+function missingStudentProfile(){
+ setMode("MIN APL","Öppna din personliga länk från Classroom");
+ $("#modePill").style.display="none";
+ app.innerHTML=`<div class="student-shell"><section class="card student-welcome"><div class="wave">🎒</div><h1>Din APL-dagbok</h1><p class="muted">Öppna den personliga APL-länken som din lärare har lagt i Classroom.</p></section></div>`;
+}
+function studentCompletion(day){
+ const missing=[];
+ if(!day.thumb)missing.push("foto");
+ if(!day.reflections?.did)missing.push("vad du gjorde");
+ if(!day.reflections?.good)missing.push("vad som gick bra");
+ if(!day.reflections?.practice)missing.push("vad du behöver träna mer på");
+ return missing;
+}
+function renderStudent(opts={}){
+ setLastMode("student");
+ const p=studentProfile();if(!p){missingStudentProfile();return}
+ studentHeader(p);
+ const day=todayDay(p),m=attendanceMetrics(p,day),scheduleText=m.schedule.active?`${m.schedule.start}–${m.schedule.end}`:"Arbetstid enligt överenskommelse";
+ let stage="before";if(day.checkIn&&!day.checkOut)stage="during";else if(day.checkOut)stage="after";
+ if(day.sentToSupervisorAt){
+   app.innerHTML=`<div class="student-shell"><section class="card student-sent"><div class="icon">✅</div><h2>Klart för idag</h2><p class="muted">Din dagsrapport är förberedd/skickad till handledaren.</p><div class="student-hint">Nästa APL-dag öppnar du bara din dagbok igen och skannar QR-koden när du börjar.</div></section></div>`;
+   return;
+ }
+ if(stage==="before"){
+   app.innerHTML=`<div class="student-shell"><section class="card student-welcome"><div class="wave">👋</div><h1>Välkommen ${esc(p.studentName)}</h1><div class="muted">${esc(p.workplace||"APL")} · ${fmtDate(day.date)}</div><div class="dayline">Idag: ${esc(scheduleText)}</div><div class="goodday">Ha en bra dag!</div><p class="muted">När du kommer fram till din APL-plats skannar du QR-koden.</p><div class="student-hint">📷 Skanna QR-koden för att checka in</div></section></div>`;
+   return;
+ }
+ if(stage==="during"){
+   const missingNow=studentCompletion(day);
+   app.innerHTML=`<div class="student-shell"><section class="card"><div class="student-check">✓ Incheckad ${fmtTime(day.checkIn)}</div>${m.late?`<div class="status warn" style="margin-top:10px">⚠ ${m.late} min sen</div>`:""}<h2 class="student-step-title">Dokumentera dagens moment</h2><p class="muted">Handledaren bestämmer vilket arbetsmoment du ska dokumentera idag.</p>${studentDocumentationHtml(p,day,"during")}${missingNow.length?`<div class="student-hint">🔒 Utcheckning låses upp när du har tagit foto och svarat på alla tre frågor.</div>`:`<div class="student-hint" style="background:#e7f6ef;border-color:#c9eadc;color:#116d4c">✓ Dokumentationen är klar. När arbetsdagen är slut skannar du samma QR-kod för att checka ut.</div>`}</section></div>`;
+   wireStudentDocumentation(p,day,"during");
+   return;
+ }
+ const missing=studentCompletion(day);
+ app.innerHTML=`<div class="student-shell"><section class="card student-finish"><div class="done-icon">✓</div><h2>Arbetsdagen är slut</h2><div class="muted">${fmtDate(day.date)}</div><div class="time-line">${fmtTime(day.checkIn)} – ${fmtTime(day.checkOut)}</div>${m.late?`<div class="status warn">⚠ Sen ankomst: ${m.late} min</div>`:""}${m.early?`<div class="status warn" style="margin-top:8px">⚠ Tidig utcheckning: ${m.early} min</div>`:""}</section>${missing.length?`<section class="card"><div class="status warn">Gör klart innan du skickar: ${esc(missing.join(", "))}</div>${studentDocumentationHtml(p,day,"after")}</section>`:`<section class="card"><h3>Dagens dokumentation</h3>${day.thumb?`<img class="photo-preview" src="${day.thumb}" alt="Dagens foto">`:""}<div class="compact-reflection" style="margin-top:10px"><div><b>Vad gjorde du?</b><br>${esc(day.reflections.did)}</div><div><b>Vad gick bra?</b><br>${esc(day.reflections.good)}</div><div><b>Träna mer på</b><br>${esc(day.reflections.practice)}</div></div><button class="btn primary big" id="sendSupervisorBtn" style="margin-top:14px">✉ SKICKA TILL HANDLEDAREN</button></section>`}</div>`;
+ if(missing.length)wireStudentDocumentation(p,day,"after");
+ else $("#sendSupervisorBtn")?.addEventListener("click",()=>sendStudentReport(p));
+}
+function studentDocumentationHtml(p,day,stage){
+ return`<div class="reflection-box"><label class="camera-label">📷 ${day.thumb?"TA NYTT FOTO":"TA FOTO"}<input id="photoInput" type="file" accept="image/*" capture="environment"></label>${day.thumb?`<img class="photo-preview" style="margin-top:10px" src="${day.thumb}" alt="Dagens foto">`:""}<div class="divider"></div><div class="stack"><label>1. Vad gjorde du?<textarea id="refDid" maxlength="300" placeholder="Skriv kort vad du gjorde idag">${esc(day.reflections?.did||"")}</textarea></label><label>2. Vad gick bra?<textarea id="refGood" maxlength="300" placeholder="Skriv kort vad som gick bra">${esc(day.reflections?.good||"")}</textarea></label><label>3. Vad behöver du träna mer på?<textarea id="refPractice" maxlength="300" placeholder="Skriv kort vad du behöver träna mer på">${esc(day.reflections?.practice||"")}</textarea></label></div>${stage==="after"?`<button class="btn primary big" id="sendSupervisorBtn" style="margin-top:14px">✉ SKICKA TILL HANDLEDAREN</button>`:""}</div>`
+}
+function wireStudentDocumentation(p,day,stage){
+ const saveRefs=()=>updateToday(d=>d.reflections={did:$("#refDid")?.value.trim()||"",good:$("#refGood")?.value.trim()||"",practice:$("#refPractice")?.value.trim()||""});
+ ["#refDid","#refGood","#refPractice"].forEach(id=>$(id)?.addEventListener("input",saveRefs));
+ $("#photoInput")?.addEventListener("change",async e=>{const file=e.target.files?.[0];if(!file)return;toast("Sparar foto…");try{const blob=await imageToBlob(file,1280,.78),thumb=await blobToThumb(blob,96,.34),key=`${p.id}|${day.date}`;await putPhoto(key,blob);updateToday(d=>d.thumb=thumb);toast("Foto sparat");renderStudent()}catch(err){console.error(err);toast("Kunde inte spara fotot")}});
+ $("#sendSupervisorBtn")?.addEventListener("click",()=>sendStudentReport(p));
+}
+async function processQrScan(){
+ const p=studentProfile();
+ if(!p){replaceHash();missingStudentProfile();toast("Öppna din personliga APL-länk från Classroom först");return}
+ const days=studentDays(),date=localDateKey();
+ if(!days[date])days[date]={date,profileId:p.id||"",checkIn:null,checkOut:null,reflections:{did:"",good:"",practice:""},thumb:"",sentToSupervisorAt:null,reportId:""};
+ const day=days[date];
+ if(!day.checkIn){
+   day.checkIn=new Date().toISOString();
+   saveStudentDays(days);
+   replaceHash();
+   toast(`Incheckad ${fmtTime(day.checkIn)} · ta foto och svara på frågorna`);
+   renderStudent();
+   return;
+ }
+ if(!day.checkOut){
+   const missing=studentCompletion(day);
+   if(missing.length){
+     replaceHash();
+     toast(`Du kan inte checka ut ännu · gör klart ${missing.join(", ")}`);
+     renderStudent();
+     return;
+   }
+   day.checkOut=new Date().toISOString();
+   saveStudentDays(days);
+   replaceHash();
+   toast(`Utcheckad ${fmtTime(day.checkOut)}`);
+   renderStudent();
+   return;
+ }
+ replaceHash();toast("Dagens in- och utcheckning är redan registrerad");renderStudent();
+}
+async function sendStudentReport(p){const days=studentDays(),day=days[localDateKey()];if(!day?.checkIn||!day?.checkOut)return toast("Checka ut med QR-koden först");if(!day.thumb)return toast("Ta ett foto innan du skickar");if(!day.reflections?.did||!day.reflections?.good||!day.reflections?.practice)return toast("Svara på alla tre frågorna");const m=attendanceMetrics(p,day);if(!day.reportId){day.reportId=uid("report");days[day.date]=day;saveStudentDays(days)}const reportId=day.reportId;const report={kind:"apl-student-day",version:2,reportId,profileId:p.id,studentCode:p.studentCode,studentName:p.studentName,workplace:p.workplace,date:day.date,scheduleStart:m.schedule.start||"",scheduleEnd:m.schedule.end||"",checkIn:day.checkIn,checkOut:day.checkOut,lateMinutes:m.late,earlyMinutes:m.early,reflections:day.reflections,thumb:day.thumb,supervisorEmail:p.supervisorEmail,teacherEmail:p.teacherEmail,supervisorName:p.supervisorName};const code=await packData("APR",report),link=`${cleanBaseUrl()}#supervisor=${code}`;const body=`APL dagsrapport – ${p.studentName} – ${day.date}\n\nHej ${p.supervisorName||"handledare"}!\n\nÖppna länken nedan för att godkänna dagens APL. Det tar normalt bara två klick:\n${link}\n\nElevens reflektion:\nVad gjorde du? ${day.reflections.did}\nVad gick bra? ${day.reflections.good}\nTräna mer: ${day.reflections.practice}\n\nIN ${fmtTime(day.checkIn)} · UT ${fmtTime(day.checkOut)}${m.late?` · SEN ${m.late} min`:""}${m.early?` · TIDIG UT ${m.early} min`:""}`;const photoKey=`${p.id}|${day.date}`;const blob=await getPhoto(photoKey);await copyText(p.supervisorEmail,"Handledarens e-postadress kopierad");updateToday(d=>d.sentToSupervisorAt=new Date().toISOString());if(blob&&navigator.share){const file=new File([blob],`APL_${p.studentCode}_${day.date}.jpg`,{type:"image/jpeg"});try{if(!navigator.canShare||navigator.canShare({files:[file]})){await navigator.share({title:`APL dagsrapport · ${p.studentName}`,text:`Till: ${p.supervisorEmail}\n\n${body}`,files:[file]});toast("Dagsrapport delad");renderStudent();return}}catch(err){if(err?.name==="AbortError"){updateToday(d=>d.sentToSupervisorAt=null);renderStudent();return}console.warn(err)}}const mailto=`mailto:${encodeURIComponent(p.supervisorEmail)}?subject=${encodeURIComponent(`APL dagsrapport · ${p.studentName} · ${day.date}`)}&body=${encodeURIComponent(body+"\n\nFotot finns i elevens APL-dagbok. Om din e-postapp inte bifogar bilden automatiskt kan eleven visa den direkt på telefonen.")}`;location.href=mailto;renderStudent()}
+
+let supervisorReport=null,selectedAssessment="";
+function renderSupervisor(report){
+ supervisorReport=report;selectedAssessment="";setMode("HANDLEDARE","Godkänn dagens APL");setLastMode("supervisor");
+ const late=Number(report.lateMinutes||0),early=Number(report.earlyMinutes||0);
+ app.innerHTML=`<div class="supervisor-compact"><section class="card"><div class="row between"><div><div class="supervisor-topline">${esc(report.studentName)} · ${fmtDate(report.date)}</div><div class="small muted">${esc(report.workplace||"")}</div></div><span class="badge neutral">APL</span></div><div class="time-line" style="text-align:left;font-size:18px">${fmtTime(report.checkIn)} – ${fmtTime(report.checkOut)}</div>${late?`<div class="status warn">⚠ ${late} min sen</div>`:""}${early?`<div class="status warn" style="margin-top:7px">⚠ ${early} min tidig utcheckning</div>`:""}<div class="divider"></div><div class="photo-box">${report.thumb?`<img class="photo-thumb" src="${report.thumb}" alt="Elevens foto">`:'<div class="photo-thumb"></div>'}<div class="small"><b>Elevens reflektion</b><br><b>Gjorde:</b> ${esc(report.reflections?.did||"—")}<br><b>Gick bra:</b> ${esc(report.reflections?.good||"—")}<br><b>Träna mer:</b> ${esc(report.reflections?.practice||"—")}</div></div><div class="divider"></div><label>Dagens arbetsuppgift<input id="actualTask" value="${esc(report.reflections?.did||"")}" maxlength="240"></label></section><section class="card"><h3 style="margin-bottom:10px">Hur gick momentet?</h3><div class="assess-grid"><button class="assess-btn" data-value="independent">🟢 Självständigt</button><button class="assess-btn" data-value="support">🟡 Med stöd</button><button class="assess-btn" data-value="practice">🔴 Behöver träna mer</button></div><button class="tiny-action" id="showDeviationBtn" type="button">+ Lägg till närvaroavvikelse</button><div class="deviation-panel" id="deviationPanel"><label>Avvikelse<select id="deviation"><option value="none">Ingen avvikelse</option><option value="sick">Sjuk / gick hem under dagen</option><option value="partial">Frånvarande del av dagen</option><option value="changed">Överenskommen ändrad arbetstid</option><option value="other">Annan avvikelse</option></select></label><label>Kort kommentar <span class="muted">(frivillig)</span><input id="devNote" maxlength="180"></label></div><button class="btn ok big" id="sendTeacherBtn" disabled style="margin-top:10px">SKICKA TILL LÄRAREN</button><div class="small muted center" style="margin-top:7px">Normalt: välj bedömning → skicka.</div></section></div>`;
+ document.querySelectorAll(".assess-btn").forEach(b=>b.onclick=()=>{selectedAssessment=b.dataset.value;document.querySelectorAll(".assess-btn").forEach(x=>x.classList.toggle("selected",x===b));$("#sendTeacherBtn").disabled=false});
+ $("#showDeviationBtn").onclick=()=>$("#deviationPanel").classList.toggle("show");
+ $("#sendTeacherBtn").onclick=sendSupervisorApproval;
+}
+
+async function sendSupervisorApproval(){const r=supervisorReport;if(!r||!selectedAssessment)return;const task=$("#actualTask").value.trim()||r.reflections?.did||"";const deviation=$("#deviation")?.value||"none",note=$("#devNote")?.value.trim()||"";const approval={kind:"apl-supervisor-approval",version:1,reportId:r.reportId,profileId:r.profileId,studentCode:r.studentCode,studentName:r.studentName,workplace:r.workplace,date:r.date,scheduleStart:r.scheduleStart,scheduleEnd:r.scheduleEnd,checkIn:r.checkIn,checkOut:r.checkOut,lateMinutes:r.lateMinutes||0,earlyMinutes:r.earlyMinutes||0,reflections:r.reflections,thumb:r.thumb||"",task,supervisorAssessment:selectedAssessment,deviation,deviationNote:note,approvedAt:new Date().toISOString()};const code=await packData("APA",approval),teacherLink=`${cleanBaseUrl()}#teacherResult=${code}`;const subject=`APL handledarrapport · ${r.studentName} · ${r.date}`;const body=`Hej!\n\nHär kommer dagens verifierade APL-rapport.\n\nElev: ${r.studentName} (${r.studentCode})\nDatum: ${r.date}\nIN ${fmtTime(r.checkIn)} · UT ${fmtTime(r.checkOut)}\nArbetsuppgift: ${task}\nHandledarbedömning: ${assessmentLabel(selectedAssessment)}\nNärvaro/avvikelse: ${deviationLabel(deviation)}${note?` – ${note}`:""}\n\nÖppna rapporten direkt i APL-lärarläget:\n${teacherLink}`;await copyText(code,"APL-koden kopierad som reserv");const mailto=`mailto:${encodeURIComponent(r.teacherEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;sessionStorage.removeItem(PENDING_SUPERVISOR_KEY);location.href=mailto;toast("Lärarmejl förberett")}
+
+async function route(){const hash=String(location.hash||"");try{
+ if(hash==="#teacher"){replaceHash();renderTeacher();return}
+ if(hash.startsWith("#profile=")){const profile=await unpackData(hash.slice(9),"APP");localStorage.setItem(STUDENT_PROFILE_KEY,JSON.stringify(profile));setLastMode("student");replaceHash();renderStudent({firstOpen:true});return}
+ if(hash===`#qr=${QR_TOKEN}`){await processQrScan();return}
+ if(hash.startsWith("#supervisor=")){const report=await unpackData(hash.slice(12),"APR");sessionStorage.setItem(PENDING_SUPERVISOR_KEY,JSON.stringify(report));replaceHash();renderSupervisor(report);return}
+ if(hash.startsWith("#teacherResult=")){const report=await unpackData(hash.slice(15),"APA");replaceHash();importTeacherReport(report);renderTeacher("reports");return}
+ }catch(err){console.error(err);app.innerHTML=`<section class="card"><div class="status bad">Länken kunde inte läsas. Kontrollera att hela APL-länken öppnades.</div></section>`;return}
+ if(studentProfile()){renderStudent();return}
+ const pending=sessionStorage.getItem(PENDING_SUPERVISOR_KEY);if(pending){try{renderSupervisor(JSON.parse(pending));return}catch(e){}}
+ missingStudentProfile();
+}
+
+route();
+})();
+</script>
+</body>
+</html>
