@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#3659d9">
-<title>APL – digital dagbok v0.3</title>
+<title>APL – digital dagbok v0.5</title>
 <style>
 :root{--blue:#3659d9;--blue2:#2848bf;--ink:#17203d;--muted:#64708c;--bg:#f3f6fb;--card:#fff;--ok:#16875d;--warn:#d98200;--bad:#c23d3d;--line:#dce3ef;--shadow:0 14px 40px rgba(25,42,86,.13)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--ink);background:var(--bg)}
@@ -26,18 +26,18 @@ label{display:grid;gap:6px;font-size:13px;font-weight:750;color:#2b3552}input,te
 .qr-image{width:220px;height:220px;border-radius:12px;border:1px solid var(--line);background:#fff;padding:7px}.home-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.home-option{border:1px solid var(--line);border-radius:18px;padding:20px;background:#fff;text-align:center;box-shadow:var(--shadow)}.home-option .icon{font-size:38px}.home-option h3{margin:8px 0}.home-option p{min-height:54px}
 .footer-note{font-size:11px;color:#6d7890;text-align:center;margin-top:22px}.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(20px);z-index:100;background:#17203d;color:#fff;padding:11px 14px;border-radius:12px;font-size:13px;font-weight:800;opacity:0;pointer-events:none;transition:.2s;max-width:min(92vw,650px);text-align:center}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-.student-shell{max-width:620px;margin:0 auto}.student-welcome{min-height:calc(100vh - 145px);display:grid;align-content:center;text-align:center;padding:28px 18px}.student-welcome .wave{font-size:54px;margin-bottom:8px}.student-welcome h1{font-size:32px;line-height:1.05;margin:0 0 8px}.student-welcome .dayline{font-size:17px;font-weight:850;margin-top:12px}.student-welcome .goodday{font-size:21px;font-weight:950;color:var(--blue);margin:20px 0 4px}.student-hint{margin-top:18px;background:#edf2ff;border:1px solid #d7e0ff;border-radius:16px;padding:14px;font-weight:850;color:#3450b9}.student-check{display:inline-flex;align-items:center;gap:7px;background:#e7f6ef;color:#116d4c;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:900}.student-step-title{font-size:26px;line-height:1.1;margin:6px 0}.camera-label{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:64px;border:0;border-radius:16px;background:var(--blue);color:#fff;font-size:18px;font-weight:950;cursor:pointer}.camera-label input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}.reflection-box label{font-size:15px}.reflection-box textarea{min-height:88px;font-size:16px}.student-finish{background:linear-gradient(180deg,#fff,#f2faf6);text-align:center}.student-finish .done-icon{font-size:48px}.student-finish h2{font-size:28px;margin:4px 0}.time-line{font-size:20px;font-weight:950;margin:10px 0}.compact-reflection{display:grid;gap:7px;text-align:left}.compact-reflection div{background:#f7f9fc;border-radius:12px;padding:10px 12px}.supervisor-compact{max-width:680px;margin:0 auto}.supervisor-topline{font-size:18px;font-weight:950}.deviation-panel{display:none;margin-top:10px}.deviation-panel.show{display:grid;gap:9px}.tiny-action{border:0;background:transparent;color:#4e5f86;font-weight:850;padding:6px 0;text-decoration:underline}.student-sent{min-height:calc(100vh - 145px);display:grid;align-content:center;text-align:center}.student-sent .icon{font-size:56px}.student-sent h2{font-size:28px;margin:8px 0}
+.student-shell{max-width:620px;margin:0 auto}.student-welcome{min-height:calc(100vh - 145px);display:grid;align-content:center;text-align:center;padding:28px 18px}.student-welcome .wave{font-size:54px;margin-bottom:8px}.student-welcome h1{font-size:32px;line-height:1.05;margin:0 0 8px}.student-welcome .dayline{font-size:17px;font-weight:850;margin-top:12px}.student-welcome .goodday{font-size:21px;font-weight:950;color:var(--blue);margin:20px 0 4px}.student-hint{margin-top:18px;background:#edf2ff;border:1px solid #d7e0ff;border-radius:16px;padding:14px;font-weight:850;color:#3450b9}.student-check{display:inline-flex;align-items:center;gap:7px;background:#e7f6ef;color:#116d4c;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:900}.student-step-title{font-size:26px;line-height:1.1;margin:6px 0}.camera-label{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:64px;border:0;border-radius:16px;background:var(--blue);color:#fff;font-size:18px;font-weight:950;cursor:pointer}.camera-label input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}.reflection-box label{font-size:15px}.reflection-box textarea{min-height:88px;font-size:16px}.student-finish{background:linear-gradient(180deg,#fff,#f2faf6);text-align:center}.student-finish .done-icon{font-size:48px}.student-finish h2{font-size:28px;margin:4px 0}.time-line{font-size:20px;font-weight:950;margin:10px 0}.compact-reflection{display:grid;gap:7px;text-align:left}.compact-reflection div{background:#f7f9fc;border-radius:12px;padding:10px 12px}.supervisor-compact{max-width:680px;margin:0 auto}.supervisor-topline{font-size:18px;font-weight:950}.deviation-panel{display:none;margin-top:10px}.deviation-panel.show{display:grid;gap:9px}.tiny-action{border:0;background:transparent;color:#4e5f86;font-weight:850;padding:6px 0;text-decoration:underline}.student-sent{min-height:calc(100vh - 145px);display:grid;align-content:center;text-align:center}.student-sent .icon{font-size:56px}.student-sent h2{font-size:28px;margin:8px 0}.teacher-corner-btn{position:fixed;top:12px;right:14px;z-index:60;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.10);color:#fff;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:800;opacity:.72;backdrop-filter:blur(4px);box-shadow:none}.teacher-corner-btn:hover,.teacher-corner-btn:focus{opacity:1;background:rgba(255,255,255,.18);outline:none}
 @media(max-width:760px){main{padding:12px 10px 36px}.grid2,.grid3,.home-grid{grid-template-columns:1fr}.goal-row{grid-template-columns:1fr}.schedule-grid{grid-template-columns:1fr 1fr 1fr}.schedule-grid .day{grid-column:1/-1;margin-top:7px}.assess-grid{grid-template-columns:1fr}.photo-box{grid-template-columns:82px 1fr}.photo-thumb{width:74px;height:74px}.card{border-radius:15px;padding:14px}.header-inner{align-items:flex-start}.mode-pill{font-size:10px}.linkbox{grid-template-columns:1fr}.linkbox .btn{width:100%}}
 </style>
 </head>
 <body>
-<header><div class="header-inner"><div><div class="brand">APL – digital dagbok</div><div class="tiny" id="headerSub">Fristående testversion v0.3</div></div><div class="mode-pill" id="modePill">START</div></div></header>
+<header><div class="header-inner"><div><div class="brand">APL – digital dagbok</div><div class="tiny" id="headerSub">Fristående testversion v0.4</div></div><div class="mode-pill" id="modePill">START</div></div></header>
 <main id="app"></main>
 <div class="toast" id="toast"></div>
 <script>
 (() => {
 "use strict";
-const VERSION="0.3";
+const VERSION="0.5";
 const TEACHER_KEY="apl_teacher_state_v01";
 const STUDENT_PROFILE_KEY="apl_student_profile_v01";
 const STUDENT_DAYS_KEY="apl_student_days_v01";
@@ -45,6 +45,9 @@ const LAST_MODE_KEY="apl_last_mode_v01";
 const QR_SESSION_KEY="apl_qr_verified_v01";
 const PENDING_PROFILE_KEY="apl_pending_profile_v01";
 const PENDING_SUPERVISOR_KEY="apl_pending_supervisor_v01";
+const TEACHER_SESSION_KEY="apl_teacher_unlocked_v01";
+const PENDING_TEACHER_RESULT_KEY="apl_pending_teacher_result_v01";
+const TEACHER_PASSWORD="password1234";
 const QR_TOKEN="APL-CHECK-V1";
 const DB_NAME="apl_student_media_v01", DB_STORE="photos";
 const $=sel=>document.querySelector(sel);
@@ -110,6 +113,17 @@ function matchGoals(profile,report){const source=[report.task,report.reflections
 function assessmentLabel(v){return v==="independent"?"Självständigt":v==="support"?"Med stöd":v==="practice"?"Behöver träna mer":"—"}
 function deviationLabel(v){return ({none:"Ingen avvikelse",sick:"Sjuk / gick hem under dagen",partial:"Frånvarande del av dagen",changed:"Överenskommen ändrad arbetstid",other:"Annan avvikelse"})[v]||v||"Ingen avvikelse"}
 
+function teacherUnlocked(){return sessionStorage.getItem(TEACHER_SESSION_KEY)==="1"}
+function renderTeacherLogin(after="teacher"){
+ setMode("LÄRARE","Lösenord krävs");setLastMode("teacher-login");
+ app.innerHTML=`<div class="student-shell"><section class="card" style="margin-top:8vh"><div class="center" style="font-size:42px">🔒</div><h2 class="center">Lärarläge</h2><p class="muted center">Ange lärarlösenordet för att fortsätta.</p><label style="margin-top:14px">Lösenord<input id="teacherPasswordInput" type="password" autocomplete="current-password" placeholder="Lösenord"></label><div id="teacherLoginError" class="status bad hidden" style="margin-top:10px">Fel lösenord.</div><button class="btn primary big" id="teacherLoginBtn" style="margin-top:12px">ÖPPNA LÄRARLÄGE</button><button class="btn ghost big" id="teacherLoginBackBtn" style="margin-top:8px">Tillbaka</button><div class="small muted center" style="margin-top:12px">Testversion v${VERSION}</div></section></div>`;
+ const input=$("#teacherPasswordInput");
+ const submit=()=>{if(input.value===TEACHER_PASSWORD){sessionStorage.setItem(TEACHER_SESSION_KEY,"1");const pending=sessionStorage.getItem(PENDING_TEACHER_RESULT_KEY);if(after==="result"&&pending){try{const report=JSON.parse(pending);sessionStorage.removeItem(PENDING_TEACHER_RESULT_KEY);importTeacherReport(report);renderTeacher("reports");return}catch(e){console.error(e)}}renderTeacher();return}$("#teacherLoginError").classList.remove("hidden");input.select();};
+ $("#teacherLoginBtn").onclick=submit;input.addEventListener("keydown",e=>{if(e.key==="Enter")submit()});
+ $("#teacherLoginBackBtn").onclick=()=>{if(studentProfile())renderStudent();else missingStudentProfile()};
+ setTimeout(()=>input.focus(),0);
+}
+
 function renderHome(){setMode("START","APL – digital dagbok");setLastMode("home");app.innerHTML=`
 <section class="card hero"><div class="hero-icon">📱</div><h2>APL – digital dagbok</h2><p class="muted">Fristående prototyp. Data sparas lokalt i respektive webbläsare.</p></section>
 <div class="home-grid">
@@ -124,10 +138,12 @@ function emptyProfile(){return{id:uid("apl"),studentCode:"",studentName:"",workp
 let editingProfile=null;
 function teacherShell(tab="profiles"){
  setMode("LÄRARE","Lokalt på lärarens dator");setLastMode("teacher");
- app.innerHTML=`<div class="card flat"><div class="nav"><button class="btn ${tab==="profiles"?"active":"ghost"}" data-tab="profiles">APL-profiler</button><button class="btn ${tab==="reports"?"active":"ghost"}" data-tab="reports">Dagsrapporter</button><button class="btn ${tab==="summary"?"active":"ghost"}" data-tab="summary">Sammanställning</button></div></div><div id="teacherContent"></div>`;
+ app.innerHTML=`<div class="card flat"><div class="row between"><div class="nav"><button class="btn ${tab==="profiles"?"active":"ghost"}" data-tab="profiles">APL-profiler</button><button class="btn ${tab==="reports"?"active":"ghost"}" data-tab="reports">Dagsrapporter</button><button class="btn ${tab==="summary"?"active":"ghost"}" data-tab="summary">Sammanställning</button></div><button class="btn ghost btn-sm" id="lockTeacherBtn">🔒 Lås</button></div></div><div id="teacherContent"></div>`;
  document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>renderTeacher(b.dataset.tab));
+ $("#lockTeacherBtn").onclick=()=>{sessionStorage.removeItem(TEACHER_SESSION_KEY);missingStudentProfile()};
 }
 function renderTeacher(tab="profiles"){
+ if(!teacherUnlocked()){renderTeacherLogin("teacher");return}
  teacherShell(tab);
  if(tab==="profiles")renderTeacherProfiles();else if(tab==="reports")renderTeacherReports();else renderTeacherSummary();
 }
@@ -200,7 +216,8 @@ function studentHeader(profile){
 function missingStudentProfile(){
  setMode("MIN APL","Öppna din personliga länk från Classroom");
  $("#modePill").style.display="none";
- app.innerHTML=`<div class="student-shell"><section class="card student-welcome"><div class="wave">🎒</div><h1>Din APL-dagbok</h1><p class="muted">Öppna den personliga APL-länken som din lärare har lagt i Classroom.</p></section></div>`;
+ app.innerHTML=`<button class="teacher-corner-btn" id="teacherAccessBtn" type="button" aria-label="Öppna lärarläge">🔒 Lärare</button><div class="student-shell"><section class="card student-welcome"><div class="wave">🎒</div><h1>Din APL-dagbok</h1><p class="muted">Öppna den personliga APL-länken som din lärare har lagt i Classroom.</p></section></div>`;
+ $("#teacherAccessBtn").onclick=()=>renderTeacherLogin("teacher");
 }
 function studentCompletion(day){
  const missing=[];
@@ -290,11 +307,11 @@ function renderSupervisor(report){
 async function sendSupervisorApproval(){const r=supervisorReport;if(!r||!selectedAssessment)return;const task=$("#actualTask").value.trim()||r.reflections?.did||"";const deviation=$("#deviation")?.value||"none",note=$("#devNote")?.value.trim()||"";const approval={kind:"apl-supervisor-approval",version:1,reportId:r.reportId,profileId:r.profileId,studentCode:r.studentCode,studentName:r.studentName,workplace:r.workplace,date:r.date,scheduleStart:r.scheduleStart,scheduleEnd:r.scheduleEnd,checkIn:r.checkIn,checkOut:r.checkOut,lateMinutes:r.lateMinutes||0,earlyMinutes:r.earlyMinutes||0,reflections:r.reflections,thumb:r.thumb||"",task,supervisorAssessment:selectedAssessment,deviation,deviationNote:note,approvedAt:new Date().toISOString()};const code=await packData("APA",approval),teacherLink=`${cleanBaseUrl()}#teacherResult=${code}`;const subject=`APL handledarrapport · ${r.studentName} · ${r.date}`;const body=`Hej!\n\nHär kommer dagens verifierade APL-rapport.\n\nElev: ${r.studentName} (${r.studentCode})\nDatum: ${r.date}\nIN ${fmtTime(r.checkIn)} · UT ${fmtTime(r.checkOut)}\nArbetsuppgift: ${task}\nHandledarbedömning: ${assessmentLabel(selectedAssessment)}\nNärvaro/avvikelse: ${deviationLabel(deviation)}${note?` – ${note}`:""}\n\nÖppna rapporten direkt i APL-lärarläget:\n${teacherLink}`;await copyText(code,"APL-koden kopierad som reserv");const mailto=`mailto:${encodeURIComponent(r.teacherEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;sessionStorage.removeItem(PENDING_SUPERVISOR_KEY);location.href=mailto;toast("Lärarmejl förberett")}
 
 async function route(){const hash=String(location.hash||"");try{
- if(hash==="#teacher"){replaceHash();renderTeacher();return}
+ if(hash==="#teacher"){replaceHash();if(teacherUnlocked())renderTeacher();else renderTeacherLogin("teacher");return}
  if(hash.startsWith("#profile=")){const profile=await unpackData(hash.slice(9),"APP");localStorage.setItem(STUDENT_PROFILE_KEY,JSON.stringify(profile));setLastMode("student");replaceHash();renderStudent({firstOpen:true});return}
  if(hash===`#qr=${QR_TOKEN}`){await processQrScan();return}
  if(hash.startsWith("#supervisor=")){const report=await unpackData(hash.slice(12),"APR");sessionStorage.setItem(PENDING_SUPERVISOR_KEY,JSON.stringify(report));replaceHash();renderSupervisor(report);return}
- if(hash.startsWith("#teacherResult=")){const report=await unpackData(hash.slice(15),"APA");replaceHash();importTeacherReport(report);renderTeacher("reports");return}
+ if(hash.startsWith("#teacherResult=")){const report=await unpackData(hash.slice(15),"APA");sessionStorage.setItem(PENDING_TEACHER_RESULT_KEY,JSON.stringify(report));replaceHash();if(teacherUnlocked()){sessionStorage.removeItem(PENDING_TEACHER_RESULT_KEY);importTeacherReport(report);renderTeacher("reports")}else renderTeacherLogin("result");return}
  }catch(err){console.error(err);app.innerHTML=`<section class="card"><div class="status bad">Länken kunde inte läsas. Kontrollera att hela APL-länken öppnades.</div></section>`;return}
  if(studentProfile()){renderStudent();return}
  const pending=sessionStorage.getItem(PENDING_SUPERVISOR_KEY);if(pending){try{renderSupervisor(JSON.parse(pending));return}catch(e){}}
